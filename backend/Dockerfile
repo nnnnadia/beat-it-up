@@ -17,6 +17,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the app code
 COPY app/ ./app/
 
+# Set PYTHONPATH so 'app' is always importable
+ENV PYTHONPATH=/app
+
 # Expose the port FastAPI will run on
 EXPOSE 8000
 

@@ -2,3 +2,6 @@ fastapi
 uvicorn
 pytesseract
 Pillow
+pytest
+pytest-asyncio
+anyio
