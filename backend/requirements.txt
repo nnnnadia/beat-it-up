@@ -6,3 +6,4 @@ pytest
 pytest-asyncio
 anyio
 python-multipart
+pandas
