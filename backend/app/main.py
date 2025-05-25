@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from .ocr import extract_table_as_csv
+from .ocr import extract_table_as_objects
 
 app = FastAPI()
 
@@ -24,5 +24,5 @@ def read_root():
 
 @app.post("/ocr")
 async def ocr_endpoint(file: UploadFile = File(...)):
-    text = await extract_table_as_csv(file)
-    return {"text": text}
+    table = await extract_table_as_objects(file)
+    return {"table": table}
