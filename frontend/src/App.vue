@@ -28,8 +28,8 @@ const loading = ref(false)
 
 // API URL switch: use localhost for dev, backend API for prod
 const API_URL = import.meta.env.MODE === 'production'
-  ? 'https://beat-it-up-backend-production-url/ocr' // <-- replace with your deployed backend URL
-  : 'http://localhost:8000/ocr'
+     ? 'https://beat-it-up-yqv1.onrender.com/ocr'
+     : 'http://localhost:8000/ocr'
 
 function onFileChange(event) {
   selectedFile.value = event.target.files[0]
