@@ -2,11 +2,12 @@
   <div class="container">
     <h1>OCR Table Extractor</h1>
     <form @submit.prevent="onSubmit">
-      <input type="file" @change="onFileChange" accept="image/*" />
+      <input type="file" @change="onFileChange" accept="image/*" capture="environment" />
       <button type="submit" :disabled="!selectedFile || loading">Upload</button>
     </form>
     <div v-if="selectedFile">
       <p>Selected file: {{ selectedFile.name }}</p>
+      <img v-if="imagePreview" :src="imagePreview" alt="Preview" style="max-width: 100%; margin-top: 1rem;" />
     </div>
     <div v-if="ocrResult">
       <h2>OCR Result</h2>
@@ -22,17 +23,23 @@
 import { ref } from 'vue'
 
 const selectedFile = ref(null)
+const imagePreview = ref(null)
 const ocrResult = ref('')
 const error = ref('')
 const loading = ref(false)
 
 // API URL switch: use localhost for dev, backend API for prod
-const API_URL = import.meta.env.MODE === 'production'
+const API_URL = import.meta.env.VITE_API_URL === 'production'
      ? 'https://beat-it-up-yqv1.onrender.com/ocr'
      : 'http://localhost:8000/ocr'
 
 function onFileChange(event) {
   selectedFile.value = event.target.files[0]
+  if (selectedFile.value) {
+    imagePreview.value = URL.createObjectURL(selectedFile.value)
+  } else {
+    imagePreview.value = null
+  }
 }
 
 async function onSubmit() {
@@ -95,6 +102,7 @@ pre {
   border-radius: 4px;
   white-space: pre-wrap;
   word-break: break-word;
+  color: #111;
 }
 .error {
   color: #c00;
